@@ -47,17 +47,21 @@ class ProcessController extends Controller
         // $message->from = 'admin@lunchwith.me';   
         // Yii::app()->mail->send($message);       
         if (count($emails) > 0) {
-            foreach ($emails as $email) {
-                if(mail($email['to'], $this->email_subject, $email['msg'])) {
-                    $results[] = true;
-                }
-                else {
-                    $results[] = false;
-                }
-            }
-            return $results;
+            echo "<pre>emails: ";
+            print_r($emails);
+            echo "</pre>";
+//            foreach ($emails as $email) {
+//                if(mail($email['to'], $this->email_subject, $email['msg'])) {
+//                    $results[] = true;
+//                }
+//                else {
+//                    $results[] = false;
+//                }
+//            }
+//            return $results;
+        } else {
+            return false;
         }
-        return false;
     }
 
  //    private function search() {
@@ -92,10 +96,13 @@ class ProcessController extends Controller
 							}
 						}
 						$you = implode(', ', $you_array);
+                        $email_settings['to'] = $me;
+                        $email_settings['msg'] = str_replace("{{ME}}", $me, $this->email_template);
+                        $email_settings['msg'] = str_replace("{{YOU}}", $you, $email_settings['msg']);
+                        $email[] = $email_settings;
+                        unset($you_array);
+                        unset($me);
 					}
-					$email_settings['to'] = $me;
-					$email_settings['msg'] = str_replace("{{ME}}", $me, $this->email_template);
-					$email_settings['msg'] = str_replace("{{YOU}}", $you, $this->email_template);
 				}
 				// else if (count($match) == 2) {
 				// 	// 2 person for lunch
@@ -108,7 +115,6 @@ class ProcessController extends Controller
 				else {
 					$error_match[] = $match;
 				}
-				$email[] = $email_settings;
 			}
 
 			return $email;
