@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Lunchwith.ME',
+    'defaultController'=>'home',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -45,6 +46,11 @@ return array(
 			),
 		),
 		*/
+        'urlManager'=>array(
+            'urlFormat'=>'path',
+            'showScriptName'=>false,
+            'caseSensitive'=>false,
+        ),
         /*
         'db'=>array(
             'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',

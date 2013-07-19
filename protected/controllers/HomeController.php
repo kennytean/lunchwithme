@@ -7,6 +7,17 @@ class HomeController extends Controller
 		$this->render('index');
 	}
 
+    public function actionSubmitForm() {
+        //echo "Works!";
+        if(isset($_POST['email'])) {
+            //echo "TTooo!";
+            $luncher = new Luncher();
+            $luncher->email = $_POST['email'];
+            $luncher->save();
+        }
+        //echo $_POST['email'];
+    }
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
