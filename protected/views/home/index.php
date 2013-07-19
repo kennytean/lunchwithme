@@ -30,11 +30,9 @@ h1 { font-size:2em; text-align: center;}
 
 <div style="width:500px; margin:50px auto;">
 
-<h1 style="text-align: center">Lunch with Me!!</h1>
+<h1 style="text-align: center"><b>Lunch with ME!!</b></h1>
 
-<h5 style="text-align: center">Next Lunch Date: </h5>
-
-<h6>Join Us!!:</h6>
+<h5 style="text-align: center">Next Lunch Date: <span style="font-size: 2em; color: #f89406">20th July 2013</span></h5>
 
 <!--<form id="just_one_form" action="/home/submit">
     <input type="text" id="email" value="Email">
@@ -42,14 +40,15 @@ h1 { font-size:2em; text-align: center;}
     <input type="button" value="How it works" onclick="toggle_div()">
 </form>-->
 
+<div style="text-align: center">
+    <?php echo CHtml::beginForm('home/submitForm','post'); ?>
+    <h6 style="text-align: center">Join Us!!</h6><br/>
+    <input type="text" name="email" id="email" placeholder="Email" value="" style="border: 1px solid #333; margin-top:2px;"><br/>
+    <?php echo CHtml::submitButton("I'm in!!", array('name' => 'button1', 'class' => 'btn btn-success')); ?>
+    <input type="button" class="btn btn-danger" value="How it works" onclick="toggle_div()" style="margin-left:10px;">
+    <?php echo CHtml::endForm(); ?>
 
-<?php echo CHtml::beginForm('home/submitForm','post'); ?>
-<input type="text" name="email" id="email" value="Email" style="border: 1px solid #333; margin-top:2px;">
-<?php echo CHtml::submitButton("I'm in!!", array('name' => 'button1', 'class' => 'btn btn-warning')); ?>
-<input type="button" class="btn btn-danger" value="How it works" onclick="toggle_div()" style="margin-left:10px;">
-<?php echo CHtml::endForm(); ?>
-
-<div id="how_it_works" style="display: none">
-<p>Test!</p>
-</div>
+    <div id="how_it_works" style="display: none">
+        <p>Test!</p>
+    </div>
 </div>

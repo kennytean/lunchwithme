@@ -2,14 +2,18 @@
 
 class ProcessController extends Controller
 {
-	public String $email_subject = "Lunch Appointment";
-	public String $email_template = "Hi {{ME}},<br/><br/>Your lunch appointment for today is approaching.. Your lunch partner will be {{YOU}}..<br/>We wish you have an awesome lunch..<br/><br/>Sincerely,<br/>Lunchwith.ME";
+	public $email_subject = "Lunch Appointment";
+	public $email_template = "Hi {{ME}},<br/><br/>Your lunch appointment for today is approaching.. Your lunch partner will be {{YOU}}..<br/>We wish you have an awesome lunch..<br/><br/>Sincerely,<br/>Lunchwith.ME";
+
+//    public function ProcessController()
+//    {
+//    }
 
 	public function actionIndex()
 	{
 		// get data from database
 		// $array = $this->search();
-		$array = Luncher::model()->findAll(array(‘where’=>’status = ‘\ACT‘\’));
+		$array = Luncher::model()->findAll();
 
 		// match them
 		if ($matches = $this->matching($array)) {
@@ -27,9 +31,7 @@ class ProcessController extends Controller
 		//$this->render('index');
 	}
 
-	private function sendEmail($emails) {
-
-public function SendMail($emails)
+	private function sendEmail($emails)
     {
         // $message = new YiiMailMessage;
            //this points to the file test.php inside the view path
@@ -44,19 +46,19 @@ public function SendMail($emails)
         // $message->addTo('yourmail@domain.com');
         // $message->from = 'admin@lunchwith.me';   
         // Yii::app()->mail->send($message);       
-    	if (count($emails) > 0) {
-    		foreach ($emails as $email) {
-    			if(mail($email['to'], $this->email_subject, $email['msg'])) {
-    				$results[] = true;
-    			}
-    			else {
-    				$results[] = false;
-    			}
-    		}
-    		return $results;
-    	}
-    	return false;
-   	}
+        if (count($emails) > 0) {
+            foreach ($emails as $email) {
+                if(mail($email['to'], $this->email_subject, $email['msg'])) {
+                    $results[] = true;
+                }
+                else {
+                    $results[] = false;
+                }
+            }
+            return $results;
+        }
+        return false;
+    }
 
  //    private function search() {
  //        $criteria=new CDbCriteria;
@@ -91,7 +93,7 @@ public function SendMail($emails)
 						}
 						$you = implode(', ', $you_array);
 					}
-					$email_settings['to'] = $address;
+					$email_settings['to'] = $me;
 					$email_settings['msg'] = str_replace("{{ME}}", $me, $this->email_template);
 					$email_settings['msg'] = str_replace("{{YOU}}", $you, $this->email_template);
 				}

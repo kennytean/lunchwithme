@@ -13,7 +13,17 @@ class HomeController extends Controller
             //echo "TTooo!";
             $luncher = new Luncher();
             $luncher->email = $_POST['email'];
-            $luncher->save();
+            $luncher->occation_id = 1;
+            $luncher->created_at = time();
+            if (!$luncher->save()) {
+                echo "<pre>Failed";print_r($luncher->getErrors());
+            }
+            else {
+                echo "Thank you! We will send your match on the lunch date morning..";
+            }
+        }
+        else {
+            echo "Please re-enter your email address!";
         }
         //echo $_POST['email'];
     }
