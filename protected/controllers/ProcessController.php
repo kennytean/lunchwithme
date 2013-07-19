@@ -143,10 +143,10 @@ class ProcessController extends Controller
 				unset($process_array[$rand_keys[1]]);
 			}
 
-			// fit the single as triple
+			// fit the single as
 			if ($single_match && $matching_array) {
 				// by this time process_array left only 1
-				array_merge($matching_array[0], $process_array);
+                $matching_array[0] = array_merge($matching_array[0], $process_array);
 			}
 
 			return $matching_array;
